@@ -1,0 +1,180 @@
+from random import randint
+from time import sleep
+fim = 0
+total = 0  # pontos player
+totaln = 0  # pontos npc
+compra = 2  # primeira compra
+compra2 = 2  # segunda compra
+compra3 = 2  # terceira compra
+
+
+print('Vamos jogar 21 até 5 cartas.')
+print('As cartas variam de 1 a 10, mas se no início saírem uma de 1 e uma de 10, a de 1 valerá 11.')
+print('Tente chegar em 21 pontos em até 5 cartas. \nSe passar de 21, você perde. \nVence quem chegar mais perto.')
+sleep(2)
+print('EMBARALHANDO...')
+sleep(3)
+card1 = randint(1, 10)  # sorteando primeira carta
+print('Sua primeira carta vale {}.'.format(card1))
+sleep(2)
+card2 = randint(1, 10)  # sorteando segunda carta
+print('Sua segunda carta vale {}.'.format(card2))
+sleep(2)
+
+total = (card1+card2)
+if card1 == 1 and card2 == 10:
+    card1 = 11
+if card2 == 1 and card1 == 10:
+    card2 = 11
+
+if total == 21:
+    print('21!!! Você venceu!')
+    print('Vamos outra?')
+
+if total > 21:
+    print('Você perdeu, pois passou de 21')
+    fim = 1
+
+if totaln > 21:
+    print('Você venceu, pois eu passei de 21')
+    fim = 1
+
+if fim == 1:
+    print('FIM DE JOGO!!!')
+
+compra = int(input('Seu total é {}. Quer mais uma? Digite 1 para SIM ou 2 para NAO: '.format(total)))
+if compra == 1:
+    card3 = randint(1, 10)
+    print('Sua terceira carta vale {}.'.format(card3))
+    sleep(1)
+    total = total+card3
+    if total > 21:
+        print('Você perdeu, pois passou de 21')
+        fim = 1
+        perdeu = 1
+    if total < 21:
+        compra2 = int(input('Seu total é {}. Quer mais uma? Digite 1 para SIM ou 2 para NAO: '.format(total)))
+    if compra2 == 1 and total < 21:
+        card4 = randint(1, 10)
+        print('Sua quarta carta vale {}.'.format(card4))
+        sleep(1)
+        total = total+card4
+        if total > 21:
+            print('Você perdeu, pois passou de 21')
+            fim = 1
+            perdeu = 1
+        if total < 21:
+            compra3 = int(input('Seu total é {}. Quer mais uma? Digite 1 para SIM ou 2 para NAO: '.format(total)))
+
+        if compra3 == 1 and total < 21:
+            card5 = randint(1, 10)
+            print('Sua quinta carta vale {}.'.format(card5))
+            print('CALCULANDO...')
+            parou = 1
+            sleep(2)
+            total = total + card5
+            if total > 21:
+                print('Você perdeu, pois passou de 21')
+                fim = 1
+                perdeu = 1
+            print('Seu total de pontos é: {}'.format(total))
+        else:
+            parou = 1
+
+            print('Seu total de pontos é: {}'.format(total))
+    else:
+        parou = 1
+
+        print('Seu total de pontos é: {}'.format(total))
+else:
+    parou = 1
+    total = card1 + card2
+    print('Seu total de pontos é: {}'.format(total))
+
+if parou == 1 and total <= 21:
+
+    if totaln > 21:
+        print('Você venceu, pois eu passei de 21')
+        fim = 1
+    sleep(2)
+    print('Minha vez.') # vez do npc
+    sleep(2)
+    npc1 = randint(1, 10) # sorteando primeira do npc
+    print('Minha primeira carta vale {}.'.format(npc1))
+    sleep(2)
+    npc2 = randint(1, 10)
+    print('Minha segunda carta vale {}.'.format(npc2))
+    sleep(2)
+    totaln = (npc1 + npc2)
+    if npc1 == 1 and npc2 == 10:
+        npc1 = 11
+    if npc2 == 1 and npc1 == 10:
+        npc2 = 11
+    print('Meu total é {}. Será que compro outra?'.format(totaln))
+    print('PENSANDO...')
+    sleep(2)
+    if totaln < 21 and totaln <= total:
+        npc3 = randint(1, 10)
+        print('Comprei mais uma. Tirei um {}'.format(npc3))
+        sleep(2)
+        totaln = npc1+npc2+npc3
+        print('Meu total é {}'.format(totaln))
+        print('PENSANDO...')
+        sleep(2)
+        if totaln < 21 and totaln <= total:
+            npc4 = randint(1, 10)
+            print('Vou comprar mais uma.')
+            sleep(2)
+            print('Minha quarta carta é {}'.format(npc4))
+            totaln = npc1+npc2+npc3+npc4
+            sleep(2)
+            print('Meu total agora é {}'.format(totaln))
+            print('PENSANDO...')
+            sleep(2)
+            if totaln < 21 and totaln <= total:
+                npc5 = randint(1, 10)
+                print('Só mais uma...')
+                sleep(2)
+                print('Minha quinta carta é {}'.format(npc5))
+                totaln = npc1+npc2+npc3+npc4+npc5
+                sleep(2)
+                print('Meu total de pontos é {}'.format(totaln))
+                sleep(3)
+                print('Seu resultado foi {}'.format(total))
+                if totaln > total and totaln <= 21:
+                    print('Eu venci você!!!')
+
+                if totaln < total and total <= 21:
+                    print('Você venceu! Parabéns!')
+
+                if totaln == total:
+                    print('Agora empatou!')
+
+            else:
+                if totaln < total:
+                    print('Você venceu! Parabéns!')
+                if totaln > total and totaln <=21:
+                    print('Venci!')
+                if total == totaln:
+                    print('Empate, dessa vez!')
+        else:
+            if totaln < total:
+                print('Você venceu dessa vez! Vamos outra?')
+            if 21 >= totaln and totaln > total:
+                print('Dessa vez eu ganhei!')
+            if total == totaln:
+                print('Empate!!!')
+    else:
+        if totaln < total:
+            print('Essa você venceu! Parabéns!')
+        if totaln > total:
+            print('Agora eu ganhei!')
+        if totaln == total:
+            print('Empatamos!')
+else:
+    print('FIM')
+if totaln > 21:
+    print('Odeio perder!')
+if total > 21:
+    print('É ruim perder, né?')
+    
